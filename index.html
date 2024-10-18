@@ -25,7 +25,7 @@
 
     <script>
         const path = window.location.pathname.split('/').pop(); // Get the last part of the URL
-        const url = `https://pastefy.app/${path}/raw`; // Construct the Pastefy URL
+        const url = `/api/fetchPaste?id=${path}`; // Construct the API URL
 
         fetch(url)
             .then(response => {
