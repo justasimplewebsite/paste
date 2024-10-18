@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Paste Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        #content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Paste Content Viewer</h1>
+    <div id="content">Loading...</div>
+
+    <script>
+        const path = window.location.pathname.split('/').pop(); // Get the last part of the URL
+        const url = `https://pastefy.app/${path}/raw`; // Construct the Pastefy URL
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('content').innerText = data;
+            })
+            .catch(error => {
+                document.getElementById('content').innerText = 'Error loading content';
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    </script>
+
+</body>
+</html>
